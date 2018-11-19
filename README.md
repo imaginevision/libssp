@@ -3,7 +3,7 @@
 SSP is a Simple Stream Protocal to get video/audio stream from Z CAM cameras.
 
 ## Why we use SSP?
-Z CAM build many VR cameras, to sync the video frame via network frome different camera, we need to add some meta info on each video/audio frame.
+Z CAM build VR cameras, to sync the video frame via network from different camera, we need to add some meta info on each video/audio frame.
 
 The protocal inside is very straight forward, it's TCP based.
 
