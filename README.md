@@ -8,7 +8,7 @@ Z CAM build VR cameras, to sync the video frame via network from different camer
 The protocal inside is very straight forward, it's TCP based.
 
 ## Features
-- Win10 x64 is supported
+- Win10/Linux x64 is supported
 - C++ 11
 - Video/Audio timestamp
 - H.265/H.264 are supported
