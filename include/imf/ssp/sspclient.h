@@ -2,6 +2,7 @@
 
 #include <functional>
 
+#ifdef _WIN32
 #ifdef FULL_SOURCE
 #define LIBSSP_API
 #else
@@ -10,6 +11,9 @@
 #else
 #define LIBSSP_API __declspec(dllimport)
 #endif
+#endif
+#else
+#define LIBSSP_API
 #endif
 
 #define ERROR_SSP_PROTOCOL_VERSION_GT_SERVER        (-1000)
