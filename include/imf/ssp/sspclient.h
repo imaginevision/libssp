@@ -2,7 +2,6 @@
 
 #include <functional>
 
-#ifdef _WIN32
 #ifdef FULL_SOURCE
 #define LIBSSP_API
 #else
@@ -12,9 +11,6 @@
 #define LIBSSP_API __declspec(dllimport)
 #endif
 #endif
-#else
-#define LIBSSP_API
-#endif
 
 #define ERROR_SSP_PROTOCOL_VERSION_GT_SERVER        (-1000)
 #define ERROR_SSP_PROTOCOL_VERSION_LT_SERVER        (-1001)
@@ -23,12 +19,6 @@
 
 namespace imf
 {
-
-enum {
-	STREAM_DEFAULT = 0,
-	STREAM_MAIN = 1,
-	STREAM_SEC = 2
-};
 
 struct LIBSSP_API SspVideoMeta {
     uint32_t width;
@@ -57,7 +47,7 @@ struct LIBSSP_API SspH264Data {
     uint64_t pts;
     uint64_t ntp_timestamp;
     uint32_t frm_no;
-    uint32_t type;			// I or P
+    uint32_t type;
 };
 
 struct LIBSSP_API SspAudioData {
@@ -67,20 +57,20 @@ struct LIBSSP_API SspAudioData {
     uint64_t ntp_timestamp;
 };
 
-typedef std::function <void(void)> OnRecvBufferFullCallback;					// called when the recv buffer is full
-typedef std::function <void(void)> OnDisconnectedCallback;						// called when the session is closed
-typedef std::function <void(void)> OnConnectionConnectedCallback;				// called when the session is est
-typedef std::function <void(struct SspH264Data * h264)> OnH264DataCallback;		// called every video frame is ready. Actually, it's a video callback, no matter it's compression format
-typedef std::function <void(struct SspAudioData * audio)> OnAudioDataCallback;	// called every audio frame is ready
-typedef std::function <void(struct SspVideoMeta*, struct SspAudioMeta*, struct SspMeta *)> OnMetaCallback;	// meta data callback
-typedef std::function <void(int code, const char* description)> OnExceptionCallback;	// exception
+typedef std::function <void(void)> OnRecvBufferFullCallback;
+typedef std::function <void(void)> OnDisconnectedCallback;
+typedef std::function <void(void)> OnConnectionConnectedCallback;
+typedef std::function <void(struct SspH264Data * h264)> OnH264DataCallback;
+typedef std::function <void(struct SspAudioData * audio)> OnAudioDataCallback;
+typedef std::function <void(struct SspVideoMeta*, struct SspAudioMeta*, struct SspMeta *)> OnMetaCallback;
+typedef std::function <void(int code, const char* description)> OnExceptionCallback;
 
 class Loop;
 class SspClientImp;
 class LIBSSP_API SspClient
 {
 public:
-    SspClient(const std::string & ip, Loop *loop, size_t bufSize, unsigned short port = 9999, uint32_t streamStyle = STREAM_DEFAULT);
+    SspClient(const std::string & ip, Loop *loop, size_t bufSize, unsigned short port = 9999, uint32_t streamStyle = 2);
     ~SspClient();
 
     int init(void);
