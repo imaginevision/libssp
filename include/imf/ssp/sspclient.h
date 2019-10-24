@@ -59,6 +59,8 @@ struct LIBSSP_API SspAudioMeta {
 
 struct LIBSSP_API SspMeta {
 	bool pts_is_wall_clock;
+	bool tc_drop_frame;
+	uint32_t timecode;
 };
 
 struct LIBSSP_API SspH264Data {
