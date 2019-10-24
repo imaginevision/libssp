@@ -13,7 +13,6 @@ The protocal inside is very straight forward, it's TCP based.
 - Video/Audio timestamp
 - H.265/H.264 are supported
 - AAC/PCM are supported
-- It use the port 9999 as the listen port.
 
 ## How to use it
 Take a look at the example code.
