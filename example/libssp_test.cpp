@@ -1,3 +1,4 @@
+#define _GLIBCXX_USE_CXX11_ABI 1
 #include <functional>
 #include <memory>
 #include <thread>
