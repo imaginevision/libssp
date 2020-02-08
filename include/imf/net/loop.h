@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "imf/base/constructormagic.h"
-#include "uv.h"
+#include "libuv/include/uv.h"
 
 #ifdef _WIN32
 #ifdef LIBSSP_EXPORTS
