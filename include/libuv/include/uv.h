@@ -28,15 +28,15 @@ extern "C" {
 #endif
 
 #ifdef _WIN32
-/* Windows - set up dll import/export decorators. */
+  /* Windows - set up dll import/export decorators. */
 # if defined(BUILDING_UV_SHARED)
-/* Building shared library. */
+    /* Building shared library. */
 #   define UV_EXTERN __declspec(dllexport)
 # elif defined(USING_UV_SHARED)
-/* Using shared library. */
+    /* Using shared library. */
 #   define UV_EXTERN __declspec(dllimport)
 # else
-/* Building static library. */
+    /* Building static library. */
 #   define UV_EXTERN /* nothing */
 # endif
 #elif __GNUC__ >= 4
@@ -172,27 +172,27 @@ extern "C" {
 
 typedef enum {
 #define XX(code, _) UV_ ## code = UV__ ## code,
-    UV_ERRNO_MAP(XX)
+  UV_ERRNO_MAP(XX)
 #undef XX
-    UV_ERRNO_MAX = UV__EOF - 1
+  UV_ERRNO_MAX = UV__EOF - 1
 } uv_errno_t;
 
 typedef enum {
-    UV_UNKNOWN_HANDLE = 0,
+  UV_UNKNOWN_HANDLE = 0,
 #define XX(uc, lc) UV_##uc,
-    UV_HANDLE_TYPE_MAP(XX)
+  UV_HANDLE_TYPE_MAP(XX)
 #undef XX
-    UV_FILE,
-    UV_HANDLE_TYPE_MAX
+  UV_FILE,
+  UV_HANDLE_TYPE_MAX
 } uv_handle_type;
 
 typedef enum {
-    UV_UNKNOWN_REQ = 0,
+  UV_UNKNOWN_REQ = 0,
 #define XX(uc, lc) UV_##uc,
-    UV_REQ_TYPE_MAP(XX)
+  UV_REQ_TYPE_MAP(XX)
 #undef XX
-    UV_REQ_TYPE_PRIVATE
-    UV_REQ_TYPE_MAX
+  UV_REQ_TYPE_PRIVATE
+  UV_REQ_TYPE_MAX
 } uv_req_type;
 
 
@@ -233,13 +233,13 @@ typedef struct uv_dirent_s uv_dirent_t;
 typedef struct uv_passwd_s uv_passwd_t;
 
 typedef enum {
-    UV_LOOP_BLOCK_SIGNAL
+  UV_LOOP_BLOCK_SIGNAL
 } uv_loop_option;
 
 typedef enum {
-    UV_RUN_DEFAULT = 0,
-    UV_RUN_ONCE,
-    UV_RUN_NOWAIT
+  UV_RUN_DEFAULT = 0,
+  UV_RUN_ONCE,
+  UV_RUN_NOWAIT
 } uv_run_mode;
 
 
@@ -319,28 +319,28 @@ typedef void (*uv_getnameinfo_cb)(uv_getnameinfo_t* req,
                                   const char* service);
 
 typedef struct {
-    long tv_sec;
-    long tv_nsec;
+  long tv_sec;
+  long tv_nsec;
 } uv_timespec_t;
 
 
 typedef struct {
-    uint64_t st_dev;
-    uint64_t st_mode;
-    uint64_t st_nlink;
-    uint64_t st_uid;
-    uint64_t st_gid;
-    uint64_t st_rdev;
-    uint64_t st_ino;
-    uint64_t st_size;
-    uint64_t st_blksize;
-    uint64_t st_blocks;
-    uint64_t st_flags;
-    uint64_t st_gen;
-    uv_timespec_t st_atim;
-    uv_timespec_t st_mtim;
-    uv_timespec_t st_ctim;
-    uv_timespec_t st_birthtim;
+  uint64_t st_dev;
+  uint64_t st_mode;
+  uint64_t st_nlink;
+  uint64_t st_uid;
+  uint64_t st_gid;
+  uint64_t st_rdev;
+  uint64_t st_ino;
+  uint64_t st_size;
+  uint64_t st_blksize;
+  uint64_t st_blocks;
+  uint64_t st_flags;
+  uint64_t st_gen;
+  uv_timespec_t st_atim;
+  uv_timespec_t st_mtim;
+  uv_timespec_t st_ctim;
+  uv_timespec_t st_birthtim;
 } uv_stat_t;
 
 
@@ -358,12 +358,10 @@ typedef void (*uv_signal_cb)(uv_signal_t* handle, int signum);
 
 
 typedef enum {
-    UV_LEAVE_GROUP = 0,
-    UV_JOIN_GROUP
+  UV_LEAVE_GROUP = 0,
+  UV_JOIN_GROUP
 } uv_membership;
 
-
-UV_EXTERN int uv_translate_sys_error(int sys_errno);
 
 UV_EXTERN const char* uv_strerror(int err);
 UV_EXTERN const char* uv_err_name(int err);
@@ -381,7 +379,7 @@ UV_EXTERN const char* uv_err_name(int err);
 
 /* Abstract base class of all requests. */
 struct uv_req_s {
-    UV_REQ_FIELDS
+  UV_REQ_FIELDS
 };
 
 
@@ -394,10 +392,10 @@ UV_EXTERN int uv_shutdown(uv_shutdown_t* req,
                           uv_shutdown_cb cb);
 
 struct uv_shutdown_s {
-    UV_REQ_FIELDS
-    uv_stream_t* handle;
-    uv_shutdown_cb cb;
-    UV_SHUTDOWN_PRIVATE_FIELDS
+  UV_REQ_FIELDS
+  uv_stream_t* handle;
+  uv_shutdown_cb cb;
+  UV_SHUTDOWN_PRIVATE_FIELDS
 };
 
 
@@ -418,7 +416,7 @@ struct uv_shutdown_s {
 
 /* The abstract base class of all handles. */
 struct uv_handle_s {
-    UV_HANDLE_FIELDS
+  UV_HANDLE_FIELDS
 };
 
 UV_EXTERN size_t uv_handle_size(uv_handle_type type);
@@ -458,8 +456,8 @@ UV_EXTERN uv_buf_t uv_buf_init(char* base, unsigned int len);
  * uv_stream_t is the parent class of uv_tcp_t, uv_pipe_t and uv_tty_t.
  */
 struct uv_stream_s {
-    UV_HANDLE_FIELDS
-    UV_STREAM_FIELDS
+  UV_HANDLE_FIELDS
+  UV_STREAM_FIELDS
 };
 
 UV_EXTERN int uv_listen(uv_stream_t* stream, int backlog, uv_connection_cb cb);
@@ -487,11 +485,11 @@ UV_EXTERN int uv_try_write(uv_stream_t* handle,
 
 /* uv_write_t is a subclass of uv_req_t. */
 struct uv_write_s {
-    UV_REQ_FIELDS
-    uv_write_cb cb;
-    uv_stream_t* send_handle;
-    uv_stream_t* handle;
-    UV_WRITE_PRIVATE_FIELDS
+  UV_REQ_FIELDS
+  uv_write_cb cb;
+  uv_stream_t* send_handle;
+  uv_stream_t* handle;
+  UV_WRITE_PRIVATE_FIELDS
 };
 
 
@@ -509,9 +507,9 @@ UV_EXTERN int uv_is_closing(const uv_handle_t* handle);
  * Represents a TCP stream or TCP server.
  */
 struct uv_tcp_s {
-    UV_HANDLE_FIELDS
-    UV_STREAM_FIELDS
-    UV_TCP_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  UV_STREAM_FIELDS
+  UV_TCP_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_tcp_init(uv_loop_t*, uv_tcp_t* handle);
@@ -524,8 +522,8 @@ UV_EXTERN int uv_tcp_keepalive(uv_tcp_t* handle,
 UV_EXTERN int uv_tcp_simultaneous_accepts(uv_tcp_t* handle, int enable);
 
 enum uv_tcp_flags {
-    /* Used with uv_tcp_bind, when an IPv6 address is used. */
-    UV_TCP_IPV6ONLY = 1
+  /* Used with uv_tcp_bind, when an IPv6 address is used. */
+  UV_TCP_IPV6ONLY = 1
 };
 
 UV_EXTERN int uv_tcp_bind(uv_tcp_t* handle,
@@ -544,10 +542,10 @@ UV_EXTERN int uv_tcp_connect(uv_connect_t* req,
 
 /* uv_connect_t is a subclass of uv_req_t. */
 struct uv_connect_s {
-    UV_REQ_FIELDS
-    uv_connect_cb cb;
-    uv_stream_t* handle;
-    UV_CONNECT_PRIVATE_FIELDS
+  UV_REQ_FIELDS
+  uv_connect_cb cb;
+  uv_stream_t* handle;
+  UV_CONNECT_PRIVATE_FIELDS
 };
 
 
@@ -556,22 +554,22 @@ struct uv_connect_s {
  */
 
 enum uv_udp_flags {
-    /* Disables dual stack mode. */
-    UV_UDP_IPV6ONLY = 1,
-    /*
-     * Indicates message was truncated because read buffer was too small. The
-     * remainder was discarded by the OS. Used in uv_udp_recv_cb.
-     */
-    UV_UDP_PARTIAL = 2,
-    /*
-     * Indicates if SO_REUSEADDR will be set when binding the handle.
-     * This sets the SO_REUSEPORT socket flag on the BSDs and OS X. On other
-     * Unix platforms, it sets the SO_REUSEADDR flag.  What that means is that
-     * multiple threads or processes can bind to the same address without error
-     * (provided they all set the flag) but only the last one to bind will receive
-     * any traffic, in effect "stealing" the port from the previous listener.
-     */
-    UV_UDP_REUSEADDR = 4
+  /* Disables dual stack mode. */
+  UV_UDP_IPV6ONLY = 1,
+  /*
+   * Indicates message was truncated because read buffer was too small. The
+   * remainder was discarded by the OS. Used in uv_udp_recv_cb.
+   */
+  UV_UDP_PARTIAL = 2,
+  /*
+   * Indicates if SO_REUSEADDR will be set when binding the handle.
+   * This sets the SO_REUSEPORT socket flag on the BSDs and OS X. On other
+   * Unix platforms, it sets the SO_REUSEADDR flag.  What that means is that
+   * multiple threads or processes can bind to the same address without error
+   * (provided they all set the flag) but only the last one to bind will receive
+   * any traffic, in effect "stealing" the port from the previous listener.
+   */
+  UV_UDP_REUSEADDR = 4
 };
 
 typedef void (*uv_udp_send_cb)(uv_udp_send_t* req, int status);
@@ -583,26 +581,26 @@ typedef void (*uv_udp_recv_cb)(uv_udp_t* handle,
 
 /* uv_udp_t is a subclass of uv_handle_t. */
 struct uv_udp_s {
-    UV_HANDLE_FIELDS
-    /* read-only */
-    /*
-     * Number of bytes queued for sending. This field strictly shows how much
-     * information is currently queued.
-     */
-    size_t send_queue_size;
-    /*
-     * Number of send requests currently in the queue awaiting to be processed.
-     */
-    size_t send_queue_count;
-    UV_UDP_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  /* read-only */
+  /*
+   * Number of bytes queued for sending. This field strictly shows how much
+   * information is currently queued.
+   */
+  size_t send_queue_size;
+  /*
+   * Number of send requests currently in the queue awaiting to be processed.
+   */
+  size_t send_queue_count;
+  UV_UDP_PRIVATE_FIELDS
 };
 
 /* uv_udp_send_t is a subclass of uv_req_t. */
 struct uv_udp_send_s {
-    UV_REQ_FIELDS
-    uv_udp_t* handle;
-    uv_udp_send_cb cb;
-    UV_UDP_SEND_PRIVATE_FIELDS
+  UV_REQ_FIELDS
+  uv_udp_t* handle;
+  uv_udp_send_cb cb;
+  UV_UDP_SEND_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_udp_init(uv_loop_t*, uv_udp_t* handle);
@@ -622,7 +620,7 @@ UV_EXTERN int uv_udp_set_membership(uv_udp_t* handle,
 UV_EXTERN int uv_udp_set_multicast_loop(uv_udp_t* handle, int on);
 UV_EXTERN int uv_udp_set_multicast_ttl(uv_udp_t* handle, int ttl);
 UV_EXTERN int uv_udp_set_multicast_interface(uv_udp_t* handle,
-        const char* interface_addr);
+                                             const char* interface_addr);
 UV_EXTERN int uv_udp_set_broadcast(uv_udp_t* handle, int on);
 UV_EXTERN int uv_udp_set_ttl(uv_udp_t* handle, int ttl);
 UV_EXTERN int uv_udp_send(uv_udp_send_t* req,
@@ -647,18 +645,18 @@ UV_EXTERN int uv_udp_recv_stop(uv_udp_t* handle);
  * Representing a stream for the console.
  */
 struct uv_tty_s {
-    UV_HANDLE_FIELDS
-    UV_STREAM_FIELDS
-    UV_TTY_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  UV_STREAM_FIELDS
+  UV_TTY_PRIVATE_FIELDS
 };
 
 typedef enum {
-    /* Initial/normal terminal mode */
-    UV_TTY_MODE_NORMAL,
-    /* Raw input mode (On Windows, ENABLE_WINDOW_INPUT is also enabled) */
-    UV_TTY_MODE_RAW,
-    /* Binary-safe I/O mode for IPC (Unix-only) */
-    UV_TTY_MODE_IO
+  /* Initial/normal terminal mode */
+  UV_TTY_MODE_NORMAL,
+  /* Raw input mode (On Windows, ENABLE_WINDOW_INPUT is also enabled) */
+  UV_TTY_MODE_RAW,
+  /* Binary-safe I/O mode for IPC (Unix-only) */
+  UV_TTY_MODE_IO
 } uv_tty_mode_t;
 
 UV_EXTERN int uv_tty_init(uv_loop_t*, uv_tty_t*, uv_file fd, int readable);
@@ -669,10 +667,9 @@ UV_EXTERN int uv_tty_get_winsize(uv_tty_t*, int* width, int* height);
 #ifdef __cplusplus
 extern "C++" {
 
-    inline int uv_tty_set_mode(uv_tty_t* handle, int mode)
-    {
-        return uv_tty_set_mode(handle, static_cast<uv_tty_mode_t>(mode));
-    }
+inline int uv_tty_set_mode(uv_tty_t* handle, int mode) {
+  return uv_tty_set_mode(handle, static_cast<uv_tty_mode_t>(mode));
+}
 
 }
 #endif
@@ -686,10 +683,10 @@ UV_EXTERN uv_handle_type uv_guess_handle(uv_file file);
  * Pipe. On Unix this is a Unix domain socket.
  */
 struct uv_pipe_s {
-    UV_HANDLE_FIELDS
-    UV_STREAM_FIELDS
-    int ipc; /* non-zero if this pipe is used for passing handles */
-    UV_PIPE_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  UV_STREAM_FIELDS
+  int ipc; /* non-zero if this pipe is used for passing handles */
+  UV_PIPE_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_pipe_init(uv_loop_t*, uv_pipe_t* handle, int ipc);
@@ -711,15 +708,15 @@ UV_EXTERN uv_handle_type uv_pipe_pending_type(uv_pipe_t* handle);
 
 
 struct uv_poll_s {
-    UV_HANDLE_FIELDS
-    uv_poll_cb poll_cb;
-    UV_POLL_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  uv_poll_cb poll_cb;
+  UV_POLL_PRIVATE_FIELDS
 };
 
 enum uv_poll_event {
-    UV_READABLE = 1,
-    UV_WRITABLE = 2,
-    UV_DISCONNECT = 4
+  UV_READABLE = 1,
+  UV_WRITABLE = 2,
+  UV_DISCONNECT = 4
 };
 
 UV_EXTERN int uv_poll_init(uv_loop_t* loop, uv_poll_t* handle, int fd);
@@ -731,8 +728,8 @@ UV_EXTERN int uv_poll_stop(uv_poll_t* handle);
 
 
 struct uv_prepare_s {
-    UV_HANDLE_FIELDS
-    UV_PREPARE_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  UV_PREPARE_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_prepare_init(uv_loop_t*, uv_prepare_t* prepare);
@@ -741,8 +738,8 @@ UV_EXTERN int uv_prepare_stop(uv_prepare_t* prepare);
 
 
 struct uv_check_s {
-    UV_HANDLE_FIELDS
-    UV_CHECK_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  UV_CHECK_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_check_init(uv_loop_t*, uv_check_t* check);
@@ -751,8 +748,8 @@ UV_EXTERN int uv_check_stop(uv_check_t* check);
 
 
 struct uv_idle_s {
-    UV_HANDLE_FIELDS
-    UV_IDLE_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  UV_IDLE_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_idle_init(uv_loop_t*, uv_idle_t* idle);
@@ -761,8 +758,8 @@ UV_EXTERN int uv_idle_stop(uv_idle_t* idle);
 
 
 struct uv_async_s {
-    UV_HANDLE_FIELDS
-    UV_ASYNC_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  UV_ASYNC_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_async_init(uv_loop_t*,
@@ -777,8 +774,8 @@ UV_EXTERN int uv_async_send(uv_async_t* async);
  * Used to get woken up at a specified time in the future.
  */
 struct uv_timer_s {
-    UV_HANDLE_FIELDS
-    UV_TIMER_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  UV_TIMER_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_timer_init(uv_loop_t*, uv_timer_t* handle);
@@ -798,11 +795,11 @@ UV_EXTERN uint64_t uv_timer_get_repeat(const uv_timer_t* handle);
  * Request object for uv_getaddrinfo.
  */
 struct uv_getaddrinfo_s {
-    UV_REQ_FIELDS
-    /* read-only */
-    uv_loop_t* loop;
-    /* struct addrinfo* addrinfo is marked as private, but it really isn't. */
-    UV_GETADDRINFO_PRIVATE_FIELDS
+  UV_REQ_FIELDS
+  /* read-only */
+  uv_loop_t* loop;
+  /* struct addrinfo* addrinfo is marked as private, but it really isn't. */
+  UV_GETADDRINFO_PRIVATE_FIELDS
 };
 
 
@@ -821,11 +818,11 @@ UV_EXTERN void uv_freeaddrinfo(struct addrinfo* ai);
 * Request object for uv_getnameinfo.
 */
 struct uv_getnameinfo_s {
-    UV_REQ_FIELDS
-    /* read-only */
-    uv_loop_t* loop;
-    /* host and service are marked as private, but they really aren't. */
-    UV_GETNAMEINFO_PRIVATE_FIELDS
+  UV_REQ_FIELDS
+  /* read-only */
+  uv_loop_t* loop;
+  /* host and service are marked as private, but they really aren't. */
+  UV_GETNAMEINFO_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_getnameinfo(uv_loop_t* loop,
@@ -837,120 +834,120 @@ UV_EXTERN int uv_getnameinfo(uv_loop_t* loop,
 
 /* uv_spawn() options. */
 typedef enum {
-    UV_IGNORE         = 0x00,
-    UV_CREATE_PIPE    = 0x01,
-    UV_INHERIT_FD     = 0x02,
-    UV_INHERIT_STREAM = 0x04,
+  UV_IGNORE         = 0x00,
+  UV_CREATE_PIPE    = 0x01,
+  UV_INHERIT_FD     = 0x02,
+  UV_INHERIT_STREAM = 0x04,
 
-    /*
-     * When UV_CREATE_PIPE is specified, UV_READABLE_PIPE and UV_WRITABLE_PIPE
-     * determine the direction of flow, from the child process' perspective. Both
-     * flags may be specified to create a duplex data stream.
-     */
-    UV_READABLE_PIPE  = 0x10,
-    UV_WRITABLE_PIPE  = 0x20
+  /*
+   * When UV_CREATE_PIPE is specified, UV_READABLE_PIPE and UV_WRITABLE_PIPE
+   * determine the direction of flow, from the child process' perspective. Both
+   * flags may be specified to create a duplex data stream.
+   */
+  UV_READABLE_PIPE  = 0x10,
+  UV_WRITABLE_PIPE  = 0x20
 } uv_stdio_flags;
 
 typedef struct uv_stdio_container_s {
-    uv_stdio_flags flags;
+  uv_stdio_flags flags;
 
-    union {
-        uv_stream_t* stream;
-        int fd;
-    } data;
+  union {
+    uv_stream_t* stream;
+    int fd;
+  } data;
 } uv_stdio_container_t;
 
 typedef struct uv_process_options_s {
-    uv_exit_cb exit_cb; /* Called after the process exits. */
-    const char* file;   /* Path to program to execute. */
-    /*
-     * Command line arguments. args[0] should be the path to the program. On
-     * Windows this uses CreateProcess which concatenates the arguments into a
-     * string this can cause some strange errors. See the note at
-     * windows_verbatim_arguments.
-     */
-    char** args;
-    /*
-     * This will be set as the environ variable in the subprocess. If this is
-     * NULL then the parents environ will be used.
-     */
-    char** env;
-    /*
-     * If non-null this represents a directory the subprocess should execute
-     * in. Stands for current working directory.
-     */
-    const char* cwd;
-    /*
-     * Various flags that control how uv_spawn() behaves. See the definition of
-     * `enum uv_process_flags` below.
-     */
-    unsigned int flags;
-    /*
-     * The `stdio` field points to an array of uv_stdio_container_t structs that
-     * describe the file descriptors that will be made available to the child
-     * process. The convention is that stdio[0] points to stdin, fd 1 is used for
-     * stdout, and fd 2 is stderr.
-     *
-     * Note that on windows file descriptors greater than 2 are available to the
-     * child process only if the child processes uses the MSVCRT runtime.
-     */
-    int stdio_count;
-    uv_stdio_container_t* stdio;
-    /*
-     * Libuv can change the child process' user/group id. This happens only when
-     * the appropriate bits are set in the flags fields. This is not supported on
-     * windows; uv_spawn() will fail and set the error to UV_ENOTSUP.
-     */
-    uv_uid_t uid;
-    uv_gid_t gid;
+  uv_exit_cb exit_cb; /* Called after the process exits. */
+  const char* file;   /* Path to program to execute. */
+  /*
+   * Command line arguments. args[0] should be the path to the program. On
+   * Windows this uses CreateProcess which concatenates the arguments into a
+   * string this can cause some strange errors. See the note at
+   * windows_verbatim_arguments.
+   */
+  char** args;
+  /*
+   * This will be set as the environ variable in the subprocess. If this is
+   * NULL then the parents environ will be used.
+   */
+  char** env;
+  /*
+   * If non-null this represents a directory the subprocess should execute
+   * in. Stands for current working directory.
+   */
+  const char* cwd;
+  /*
+   * Various flags that control how uv_spawn() behaves. See the definition of
+   * `enum uv_process_flags` below.
+   */
+  unsigned int flags;
+  /*
+   * The `stdio` field points to an array of uv_stdio_container_t structs that
+   * describe the file descriptors that will be made available to the child
+   * process. The convention is that stdio[0] points to stdin, fd 1 is used for
+   * stdout, and fd 2 is stderr.
+   *
+   * Note that on windows file descriptors greater than 2 are available to the
+   * child process only if the child processes uses the MSVCRT runtime.
+   */
+  int stdio_count;
+  uv_stdio_container_t* stdio;
+  /*
+   * Libuv can change the child process' user/group id. This happens only when
+   * the appropriate bits are set in the flags fields. This is not supported on
+   * windows; uv_spawn() will fail and set the error to UV_ENOTSUP.
+   */
+  uv_uid_t uid;
+  uv_gid_t gid;
 } uv_process_options_t;
 
 /*
  * These are the flags that can be used for the uv_process_options.flags field.
  */
 enum uv_process_flags {
-    /*
-     * Set the child process' user id. The user id is supplied in the `uid` field
-     * of the options struct. This does not work on windows; setting this flag
-     * will cause uv_spawn() to fail.
-     */
-    UV_PROCESS_SETUID = (1 << 0),
-    /*
-     * Set the child process' group id. The user id is supplied in the `gid`
-     * field of the options struct. This does not work on windows; setting this
-     * flag will cause uv_spawn() to fail.
-     */
-    UV_PROCESS_SETGID = (1 << 1),
-    /*
-     * Do not wrap any arguments in quotes, or perform any other escaping, when
-     * converting the argument list into a command line string. This option is
-     * only meaningful on Windows systems. On Unix it is silently ignored.
-     */
-    UV_PROCESS_WINDOWS_VERBATIM_ARGUMENTS = (1 << 2),
-    /*
-     * Spawn the child process in a detached state - this will make it a process
-     * group leader, and will effectively enable the child to keep running after
-     * the parent exits.  Note that the child process will still keep the
-     * parent's event loop alive unless the parent process calls uv_unref() on
-     * the child's process handle.
-     */
-    UV_PROCESS_DETACHED = (1 << 3),
-    /*
-     * Hide the subprocess console window that would normally be created. This
-     * option is only meaningful on Windows systems. On Unix it is silently
-     * ignored.
-     */
-    UV_PROCESS_WINDOWS_HIDE = (1 << 4)
+  /*
+   * Set the child process' user id. The user id is supplied in the `uid` field
+   * of the options struct. This does not work on windows; setting this flag
+   * will cause uv_spawn() to fail.
+   */
+  UV_PROCESS_SETUID = (1 << 0),
+  /*
+   * Set the child process' group id. The user id is supplied in the `gid`
+   * field of the options struct. This does not work on windows; setting this
+   * flag will cause uv_spawn() to fail.
+   */
+  UV_PROCESS_SETGID = (1 << 1),
+  /*
+   * Do not wrap any arguments in quotes, or perform any other escaping, when
+   * converting the argument list into a command line string. This option is
+   * only meaningful on Windows systems. On Unix it is silently ignored.
+   */
+  UV_PROCESS_WINDOWS_VERBATIM_ARGUMENTS = (1 << 2),
+  /*
+   * Spawn the child process in a detached state - this will make it a process
+   * group leader, and will effectively enable the child to keep running after
+   * the parent exits.  Note that the child process will still keep the
+   * parent's event loop alive unless the parent process calls uv_unref() on
+   * the child's process handle.
+   */
+  UV_PROCESS_DETACHED = (1 << 3),
+  /*
+   * Hide the subprocess console window that would normally be created. This
+   * option is only meaningful on Windows systems. On Unix it is silently
+   * ignored.
+   */
+  UV_PROCESS_WINDOWS_HIDE = (1 << 4)
 };
 
 /*
  * uv_process_t is a subclass of uv_handle_t.
  */
 struct uv_process_s {
-    UV_HANDLE_FIELDS
-    uv_exit_cb exit_cb;
-    int pid;
-    UV_PROCESS_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  uv_exit_cb exit_cb;
+  int pid;
+  UV_PROCESS_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_spawn(uv_loop_t* loop,
@@ -964,11 +961,11 @@ UV_EXTERN int uv_kill(int pid, int signum);
  * uv_work_t is a subclass of uv_req_t.
  */
 struct uv_work_s {
-    UV_REQ_FIELDS
-    uv_loop_t* loop;
-    uv_work_cb work_cb;
-    uv_after_work_cb after_work_cb;
-    UV_WORK_PRIVATE_FIELDS
+  UV_REQ_FIELDS
+  uv_loop_t* loop;
+  uv_work_cb work_cb;
+  uv_after_work_cb after_work_cb;
+  UV_WORK_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_queue_work(uv_loop_t* loop,
@@ -980,53 +977,53 @@ UV_EXTERN int uv_cancel(uv_req_t* req);
 
 
 struct uv_cpu_info_s {
-    char* model;
-    int speed;
-    struct uv_cpu_times_s {
-        uint64_t user;
-        uint64_t nice;
-        uint64_t sys;
-        uint64_t idle;
-        uint64_t irq;
-    } cpu_times;
+  char* model;
+  int speed;
+  struct uv_cpu_times_s {
+    uint64_t user;
+    uint64_t nice;
+    uint64_t sys;
+    uint64_t idle;
+    uint64_t irq;
+  } cpu_times;
 };
 
 struct uv_interface_address_s {
-    char* name;
-    char phys_addr[6];
-    int is_internal;
-    union {
-        struct sockaddr_in address4;
-        struct sockaddr_in6 address6;
-    } address;
-    union {
-        struct sockaddr_in netmask4;
-        struct sockaddr_in6 netmask6;
-    } netmask;
+  char* name;
+  char phys_addr[6];
+  int is_internal;
+  union {
+    struct sockaddr_in address4;
+    struct sockaddr_in6 address6;
+  } address;
+  union {
+    struct sockaddr_in netmask4;
+    struct sockaddr_in6 netmask6;
+  } netmask;
 };
 
 struct uv_passwd_s {
-    char* username;
-    long uid;
-    long gid;
-    char* shell;
-    char* homedir;
+  char* username;
+  long uid;
+  long gid;
+  char* shell;
+  char* homedir;
 };
 
 typedef enum {
-    UV_DIRENT_UNKNOWN,
-    UV_DIRENT_FILE,
-    UV_DIRENT_DIR,
-    UV_DIRENT_LINK,
-    UV_DIRENT_FIFO,
-    UV_DIRENT_SOCKET,
-    UV_DIRENT_CHAR,
-    UV_DIRENT_BLOCK
+  UV_DIRENT_UNKNOWN,
+  UV_DIRENT_FILE,
+  UV_DIRENT_DIR,
+  UV_DIRENT_LINK,
+  UV_DIRENT_FIFO,
+  UV_DIRENT_SOCKET,
+  UV_DIRENT_CHAR,
+  UV_DIRENT_BLOCK
 } uv_dirent_type_t;
 
 struct uv_dirent_s {
-    const char* name;
-    uv_dirent_type_t type;
+  const char* name;
+  uv_dirent_type_t type;
 };
 
 UV_EXTERN char** uv_setup_args(int argc, char** argv);
@@ -1036,27 +1033,27 @@ UV_EXTERN int uv_resident_set_memory(size_t* rss);
 UV_EXTERN int uv_uptime(double* uptime);
 
 typedef struct {
-    long tv_sec;
-    long tv_usec;
+  long tv_sec;
+  long tv_usec;
 } uv_timeval_t;
 
 typedef struct {
-    uv_timeval_t ru_utime; /* user CPU time used */
-    uv_timeval_t ru_stime; /* system CPU time used */
-    uint64_t ru_maxrss;    /* maximum resident set size */
-    uint64_t ru_ixrss;     /* integral shared memory size */
-    uint64_t ru_idrss;     /* integral unshared data size */
-    uint64_t ru_isrss;     /* integral unshared stack size */
-    uint64_t ru_minflt;    /* page reclaims (soft page faults) */
-    uint64_t ru_majflt;    /* page faults (hard page faults) */
-    uint64_t ru_nswap;     /* swaps */
-    uint64_t ru_inblock;   /* block input operations */
-    uint64_t ru_oublock;   /* block output operations */
-    uint64_t ru_msgsnd;    /* IPC messages sent */
-    uint64_t ru_msgrcv;    /* IPC messages received */
-    uint64_t ru_nsignals;  /* signals received */
-    uint64_t ru_nvcsw;     /* voluntary context switches */
-    uint64_t ru_nivcsw;    /* involuntary context switches */
+   uv_timeval_t ru_utime; /* user CPU time used */
+   uv_timeval_t ru_stime; /* system CPU time used */
+   uint64_t ru_maxrss;    /* maximum resident set size */
+   uint64_t ru_ixrss;     /* integral shared memory size */
+   uint64_t ru_idrss;     /* integral unshared data size */
+   uint64_t ru_isrss;     /* integral unshared stack size */
+   uint64_t ru_minflt;    /* page reclaims (soft page faults) */
+   uint64_t ru_majflt;    /* page faults (hard page faults) */
+   uint64_t ru_nswap;     /* swaps */
+   uint64_t ru_inblock;   /* block input operations */
+   uint64_t ru_oublock;   /* block output operations */
+   uint64_t ru_msgsnd;    /* IPC messages sent */
+   uint64_t ru_msgrcv;    /* IPC messages received */
+   uint64_t ru_nsignals;  /* signals received */
+   uint64_t ru_nvcsw;     /* voluntary context switches */
+   uint64_t ru_nivcsw;    /* involuntary context switches */
 } uv_rusage_t;
 
 UV_EXTERN int uv_getrusage(uv_rusage_t* rusage);
@@ -1072,53 +1069,53 @@ UV_EXTERN void uv_free_cpu_info(uv_cpu_info_t* cpu_infos, int count);
 UV_EXTERN int uv_interface_addresses(uv_interface_address_t** addresses,
                                      int* count);
 UV_EXTERN void uv_free_interface_addresses(uv_interface_address_t* addresses,
-        int count);
+                                           int count);
 
 
 typedef enum {
-    UV_FS_UNKNOWN = -1,
-    UV_FS_CUSTOM,
-    UV_FS_OPEN,
-    UV_FS_CLOSE,
-    UV_FS_READ,
-    UV_FS_WRITE,
-    UV_FS_SENDFILE,
-    UV_FS_STAT,
-    UV_FS_LSTAT,
-    UV_FS_FSTAT,
-    UV_FS_FTRUNCATE,
-    UV_FS_UTIME,
-    UV_FS_FUTIME,
-    UV_FS_ACCESS,
-    UV_FS_CHMOD,
-    UV_FS_FCHMOD,
-    UV_FS_FSYNC,
-    UV_FS_FDATASYNC,
-    UV_FS_UNLINK,
-    UV_FS_RMDIR,
-    UV_FS_MKDIR,
-    UV_FS_MKDTEMP,
-    UV_FS_RENAME,
-    UV_FS_SCANDIR,
-    UV_FS_LINK,
-    UV_FS_SYMLINK,
-    UV_FS_READLINK,
-    UV_FS_CHOWN,
-    UV_FS_FCHOWN,
-    UV_FS_REALPATH
+  UV_FS_UNKNOWN = -1,
+  UV_FS_CUSTOM,
+  UV_FS_OPEN,
+  UV_FS_CLOSE,
+  UV_FS_READ,
+  UV_FS_WRITE,
+  UV_FS_SENDFILE,
+  UV_FS_STAT,
+  UV_FS_LSTAT,
+  UV_FS_FSTAT,
+  UV_FS_FTRUNCATE,
+  UV_FS_UTIME,
+  UV_FS_FUTIME,
+  UV_FS_ACCESS,
+  UV_FS_CHMOD,
+  UV_FS_FCHMOD,
+  UV_FS_FSYNC,
+  UV_FS_FDATASYNC,
+  UV_FS_UNLINK,
+  UV_FS_RMDIR,
+  UV_FS_MKDIR,
+  UV_FS_MKDTEMP,
+  UV_FS_RENAME,
+  UV_FS_SCANDIR,
+  UV_FS_LINK,
+  UV_FS_SYMLINK,
+  UV_FS_READLINK,
+  UV_FS_CHOWN,
+  UV_FS_FCHOWN,
+  UV_FS_REALPATH
 } uv_fs_type;
 
 /* uv_fs_t is a subclass of uv_req_t. */
 struct uv_fs_s {
-    UV_REQ_FIELDS
-    uv_fs_type fs_type;
-    uv_loop_t* loop;
-    uv_fs_cb cb;
-    ssize_t result;
-    void* ptr;
-    const char* path;
-    uv_stat_t statbuf;  /* Stores the result of uv_fs_stat() and uv_fs_fstat(). */
-    UV_FS_PRIVATE_FIELDS
+  UV_REQ_FIELDS
+  uv_fs_type fs_type;
+  uv_loop_t* loop;
+  uv_fs_cb cb;
+  ssize_t result;
+  void* ptr;
+  const char* path;
+  uv_stat_t statbuf;  /* Stores the result of uv_fs_stat() and uv_fs_fstat(). */
+  UV_FS_PRIVATE_FIELDS
 };
 
 UV_EXTERN void uv_fs_req_cleanup(uv_fs_t* req);
@@ -1281,16 +1278,16 @@ UV_EXTERN int uv_fs_fchown(uv_loop_t* loop,
 
 
 enum uv_fs_event {
-    UV_RENAME = 1,
-    UV_CHANGE = 2
+  UV_RENAME = 1,
+  UV_CHANGE = 2
 };
 
 
 struct uv_fs_event_s {
-    UV_HANDLE_FIELDS
-    /* private */
-    char* path;
-    UV_FS_EVENT_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  /* private */
+  char* path;
+  UV_FS_EVENT_PRIVATE_FIELDS
 };
 
 
@@ -1298,9 +1295,9 @@ struct uv_fs_event_s {
  * uv_fs_stat() based polling file watcher.
  */
 struct uv_fs_poll_s {
-    UV_HANDLE_FIELDS
-    /* Private, don't touch. */
-    void* poll_ctx;
+  UV_HANDLE_FIELDS
+  /* Private, don't touch. */
+  void* poll_ctx;
 };
 
 UV_EXTERN int uv_fs_poll_init(uv_loop_t* loop, uv_fs_poll_t* handle);
@@ -1315,10 +1312,10 @@ UV_EXTERN int uv_fs_poll_getpath(uv_fs_poll_t* handle,
 
 
 struct uv_signal_s {
-    UV_HANDLE_FIELDS
-    uv_signal_cb signal_cb;
-    int signum;
-    UV_SIGNAL_PRIVATE_FIELDS
+  UV_HANDLE_FIELDS
+  uv_signal_cb signal_cb;
+  int signum;
+  UV_SIGNAL_PRIVATE_FIELDS
 };
 
 UV_EXTERN int uv_signal_init(uv_loop_t* loop, uv_signal_t* handle);
@@ -1334,30 +1331,30 @@ UV_EXTERN void uv_loadavg(double avg[3]);
  * Flags to be passed to uv_fs_event_start().
  */
 enum uv_fs_event_flags {
-    /*
-     * By default, if the fs event watcher is given a directory name, we will
-     * watch for all events in that directory. This flags overrides this behavior
-     * and makes fs_event report only changes to the directory entry itself. This
-     * flag does not affect individual files watched.
-     * This flag is currently not implemented yet on any backend.
-     */
-    UV_FS_EVENT_WATCH_ENTRY = 1,
+  /*
+   * By default, if the fs event watcher is given a directory name, we will
+   * watch for all events in that directory. This flags overrides this behavior
+   * and makes fs_event report only changes to the directory entry itself. This
+   * flag does not affect individual files watched.
+   * This flag is currently not implemented yet on any backend.
+   */
+  UV_FS_EVENT_WATCH_ENTRY = 1,
 
-    /*
-     * By default uv_fs_event will try to use a kernel interface such as inotify
-     * or kqueue to detect events. This may not work on remote filesystems such
-     * as NFS mounts. This flag makes fs_event fall back to calling stat() on a
-     * regular interval.
-     * This flag is currently not implemented yet on any backend.
-     */
-    UV_FS_EVENT_STAT = 2,
+  /*
+   * By default uv_fs_event will try to use a kernel interface such as inotify
+   * or kqueue to detect events. This may not work on remote filesystems such
+   * as NFS mounts. This flag makes fs_event fall back to calling stat() on a
+   * regular interval.
+   * This flag is currently not implemented yet on any backend.
+   */
+  UV_FS_EVENT_STAT = 2,
 
-    /*
-     * By default, event watcher, when watching directory, is not registering
-     * (is ignoring) changes in it's subdirectories.
-     * This flag will override this behaviour on platforms that support it.
-     */
-    UV_FS_EVENT_RECURSIVE = 4
+  /*
+   * By default, event watcher, when watching directory, is not registering
+   * (is ignoring) changes in it's subdirectories.
+   * This flag will override this behaviour on platforms that support it.
+   */
+  UV_FS_EVENT_RECURSIVE = 4
 };
 
 
@@ -1450,25 +1447,25 @@ UV_EXTERN int uv_thread_equal(const uv_thread_t* t1, const uv_thread_t* t2);
 /* The presence of these unions force similar struct layout. */
 #define XX(_, name) uv_ ## name ## _t name;
 union uv_any_handle {
-    UV_HANDLE_TYPE_MAP(XX)
+  UV_HANDLE_TYPE_MAP(XX)
 };
 
 union uv_any_req {
-    UV_REQ_TYPE_MAP(XX)
+  UV_REQ_TYPE_MAP(XX)
 };
 #undef XX
 
 
 struct uv_loop_s {
-    /* User data - use this for whatever. */
-    void* data;
-    /* Loop reference counting. */
-    unsigned int active_handles;
-    void* handle_queue[2];
-    void* active_reqs[2];
-    /* Internal flag to signal loop stop. */
-    unsigned int stop_flag;
-    UV_LOOP_PRIVATE_FIELDS
+  /* User data - use this for whatever. */
+  void* data;
+  /* Loop reference counting. */
+  unsigned int active_handles;
+  void* handle_queue[2];
+  void* active_reqs[2];
+  /* Internal flag to signal loop stop. */
+  unsigned int stop_flag;
+  UV_LOOP_PRIVATE_FIELDS
 };
 
 

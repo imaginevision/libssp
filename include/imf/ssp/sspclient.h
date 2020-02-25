@@ -106,6 +106,7 @@ public:
 	void setOnDisconnectedCallback(const OnDisconnectedCallback & cb);
 	void setOnConnectionConnectedCallback(const OnConnectionConnectedCallback & cb);
 	void setOnExceptionCallback(const OnExceptionCallback & cb);
+
 private:
 	SspClientImp *imp_;
 };

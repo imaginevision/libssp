@@ -33,9 +33,9 @@ typedef intptr_t ssize_t;
 
 #if defined(__MINGW32__) && !defined(__MINGW64_VERSION_MAJOR)
 typedef struct pollfd {
-    SOCKET fd;
-    short  events;
-    short  revents;
+  SOCKET fd;
+  short  events;
+  short  revents;
 } WSAPOLLFD, *PWSAPOLLFD, *LPWSAPOLLFD;
 #endif
 
@@ -116,94 +116,94 @@ typedef struct pollfd {
          {0xb5367df0, 0xcbac, 0x11cf,                                         \
          {0x95, 0xca, 0x00, 0x80, 0x5f, 0x48, 0xa1, 0x92}}
 
-typedef BOOL (PASCAL *LPFN_ACCEPTEX)
-(SOCKET sListenSocket,
- SOCKET sAcceptSocket,
- PVOID lpOutputBuffer,
- DWORD dwReceiveDataLength,
- DWORD dwLocalAddressLength,
- DWORD dwRemoteAddressLength,
- LPDWORD lpdwBytesReceived,
- LPOVERLAPPED lpOverlapped);
+  typedef BOOL PASCAL (*LPFN_ACCEPTEX)
+                      (SOCKET sListenSocket,
+                       SOCKET sAcceptSocket,
+                       PVOID lpOutputBuffer,
+                       DWORD dwReceiveDataLength,
+                       DWORD dwLocalAddressLength,
+                       DWORD dwRemoteAddressLength,
+                       LPDWORD lpdwBytesReceived,
+                       LPOVERLAPPED lpOverlapped);
 
-typedef BOOL (PASCAL *LPFN_CONNECTEX)
-(SOCKET s,
- const struct sockaddr* name,
- int namelen,
- PVOID lpSendBuffer,
- DWORD dwSendDataLength,
- LPDWORD lpdwBytesSent,
- LPOVERLAPPED lpOverlapped);
+  typedef BOOL PASCAL (*LPFN_CONNECTEX)
+                      (SOCKET s,
+                       const struct sockaddr* name,
+                       int namelen,
+                       PVOID lpSendBuffer,
+                       DWORD dwSendDataLength,
+                       LPDWORD lpdwBytesSent,
+                       LPOVERLAPPED lpOverlapped);
 
-typedef void (PASCAL *LPFN_GETACCEPTEXSOCKADDRS)
-(PVOID lpOutputBuffer,
- DWORD dwReceiveDataLength,
- DWORD dwLocalAddressLength,
- DWORD dwRemoteAddressLength,
- LPSOCKADDR* LocalSockaddr,
- LPINT LocalSockaddrLength,
- LPSOCKADDR* RemoteSockaddr,
- LPINT RemoteSockaddrLength);
+  typedef void PASCAL (*LPFN_GETACCEPTEXSOCKADDRS)
+                      (PVOID lpOutputBuffer,
+                       DWORD dwReceiveDataLength,
+                       DWORD dwLocalAddressLength,
+                       DWORD dwRemoteAddressLength,
+                       LPSOCKADDR* LocalSockaddr,
+                       LPINT LocalSockaddrLength,
+                       LPSOCKADDR* RemoteSockaddr,
+                       LPINT RemoteSockaddrLength);
 
-typedef BOOL (PASCAL *LPFN_DISCONNECTEX)
-(SOCKET hSocket,
- LPOVERLAPPED lpOverlapped,
- DWORD dwFlags,
- DWORD reserved);
+  typedef BOOL PASCAL (*LPFN_DISCONNECTEX)
+                      (SOCKET hSocket,
+                       LPOVERLAPPED lpOverlapped,
+                       DWORD dwFlags,
+                       DWORD reserved);
 
-typedef BOOL (PASCAL *LPFN_TRANSMITFILE)
-(SOCKET hSocket,
- HANDLE hFile,
- DWORD nNumberOfBytesToWrite,
- DWORD nNumberOfBytesPerSend,
- LPOVERLAPPED lpOverlapped,
- LPTRANSMIT_FILE_BUFFERS lpTransmitBuffers,
- DWORD dwFlags);
+  typedef BOOL PASCAL (*LPFN_TRANSMITFILE)
+                      (SOCKET hSocket,
+                       HANDLE hFile,
+                       DWORD nNumberOfBytesToWrite,
+                       DWORD nNumberOfBytesPerSend,
+                       LPOVERLAPPED lpOverlapped,
+                       LPTRANSMIT_FILE_BUFFERS lpTransmitBuffers,
+                       DWORD dwFlags);
 
-typedef PVOID RTL_SRWLOCK;
-typedef RTL_SRWLOCK SRWLOCK, *PSRWLOCK;
+  typedef PVOID RTL_SRWLOCK;
+  typedef RTL_SRWLOCK SRWLOCK, *PSRWLOCK;
 #endif
 
 typedef int (WSAAPI* LPFN_WSARECV)
-(SOCKET socket,
- LPWSABUF buffers,
- DWORD buffer_count,
- LPDWORD bytes,
- LPDWORD flags,
- LPWSAOVERLAPPED overlapped,
- LPWSAOVERLAPPED_COMPLETION_ROUTINE completion_routine);
+            (SOCKET socket,
+             LPWSABUF buffers,
+             DWORD buffer_count,
+             LPDWORD bytes,
+             LPDWORD flags,
+             LPWSAOVERLAPPED overlapped,
+             LPWSAOVERLAPPED_COMPLETION_ROUTINE completion_routine);
 
 typedef int (WSAAPI* LPFN_WSARECVFROM)
-(SOCKET socket,
- LPWSABUF buffers,
- DWORD buffer_count,
- LPDWORD bytes,
- LPDWORD flags,
- struct sockaddr* addr,
- LPINT addr_len,
- LPWSAOVERLAPPED overlapped,
- LPWSAOVERLAPPED_COMPLETION_ROUTINE completion_routine);
+            (SOCKET socket,
+             LPWSABUF buffers,
+             DWORD buffer_count,
+             LPDWORD bytes,
+             LPDWORD flags,
+             struct sockaddr* addr,
+             LPINT addr_len,
+             LPWSAOVERLAPPED overlapped,
+             LPWSAOVERLAPPED_COMPLETION_ROUTINE completion_routine);
 
 #ifndef _NTDEF_
-typedef LONG NTSTATUS;
-typedef NTSTATUS *PNTSTATUS;
+  typedef LONG NTSTATUS;
+  typedef NTSTATUS *PNTSTATUS;
 #endif
 
 #ifndef RTL_CONDITION_VARIABLE_INIT
-typedef PVOID CONDITION_VARIABLE, *PCONDITION_VARIABLE;
+  typedef PVOID CONDITION_VARIABLE, *PCONDITION_VARIABLE;
 #endif
 
 typedef struct _AFD_POLL_HANDLE_INFO {
-    HANDLE Handle;
-    ULONG Events;
-    NTSTATUS Status;
+  HANDLE Handle;
+  ULONG Events;
+  NTSTATUS Status;
 } AFD_POLL_HANDLE_INFO, *PAFD_POLL_HANDLE_INFO;
 
 typedef struct _AFD_POLL_INFO {
-    LARGE_INTEGER Timeout;
-    ULONG NumberOfHandles;
-    ULONG Exclusive;
-    AFD_POLL_HANDLE_INFO Handles[1];
+  LARGE_INTEGER Timeout;
+  ULONG NumberOfHandles;
+  ULONG Exclusive;
+  AFD_POLL_HANDLE_INFO Handles[1];
 } AFD_POLL_INFO, *PAFD_POLL_INFO;
 
 #define UV_MSAFD_PROVIDER_COUNT 3
@@ -214,8 +214,8 @@ typedef struct _AFD_POLL_INFO {
  * see http://msdn.microsoft.com/en-us/library/ms741542(v=vs.85).aspx
  */
 typedef struct uv_buf_t {
-    ULONG len;
-    char* base;
+  ULONG len;
+  char* base;
 } uv_buf_t;
 
 typedef int uv_file;
@@ -236,49 +236,49 @@ typedef CRITICAL_SECTION uv_mutex_t;
  */
 
 typedef union {
-    CONDITION_VARIABLE cond_var;
-    struct {
-        unsigned int waiters_count;
-        CRITICAL_SECTION waiters_count_lock;
-        HANDLE signal_event;
-        HANDLE broadcast_event;
-    } fallback;
+  CONDITION_VARIABLE cond_var;
+  struct {
+    unsigned int waiters_count;
+    CRITICAL_SECTION waiters_count_lock;
+    HANDLE signal_event;
+    HANDLE broadcast_event;
+  } fallback;
 } uv_cond_t;
 
 typedef union {
-    struct {
-        unsigned int num_readers_;
-        CRITICAL_SECTION num_readers_lock_;
-        HANDLE write_semaphore_;
-    } state_;
-    /* TODO: remove me in v2.x. */
-    struct {
-        SRWLOCK unused_;
-    } unused1_;
-    /* TODO: remove me in v2.x. */
-    struct {
-        uv_mutex_t unused1_;
-        uv_mutex_t unused2_;
-    } unused2_;
+  struct {
+    unsigned int num_readers_;
+    CRITICAL_SECTION num_readers_lock_;
+    HANDLE write_semaphore_;
+  } state_;
+  /* TODO: remove me in v2.x. */
+  struct {
+    SRWLOCK unused_;
+  } unused1_;
+  /* TODO: remove me in v2.x. */
+  struct {
+    uv_mutex_t unused1_;
+    uv_mutex_t unused2_;
+  } unused2_;
 } uv_rwlock_t;
 
 typedef struct {
-    unsigned int n;
-    unsigned int count;
-    uv_mutex_t mutex;
-    uv_sem_t turnstile1;
-    uv_sem_t turnstile2;
+  unsigned int n;
+  unsigned int count;
+  uv_mutex_t mutex;
+  uv_sem_t turnstile1;
+  uv_sem_t turnstile2;
 } uv_barrier_t;
 
 typedef struct {
-    DWORD tls_index;
+  DWORD tls_index;
 } uv_key_t;
 
 #define UV_ONCE_INIT { 0, NULL }
 
 typedef struct uv_once_s {
-    unsigned char ran;
-    HANDLE event;
+  unsigned char ran;
+  HANDLE event;
 } uv_once_t;
 
 /* Platform-specific definitions for uv_spawn support. */
@@ -286,8 +286,8 @@ typedef unsigned char uv_uid_t;
 typedef unsigned char uv_gid_t;
 
 typedef struct uv__dirent_s {
-    int d_type;
-    char d_name[1];
+  int d_type;
+  char d_name[1];
 } uv__dirent_t;
 
 #define HAVE_DIRENT_TYPES
@@ -302,8 +302,8 @@ typedef struct uv__dirent_s {
 /* Platform-specific definitions for uv_dlopen support. */
 #define UV_DYNAMIC FAR WINAPI
 typedef struct {
-    HMODULE handle;
-    char* errmsg;
+  HMODULE handle;
+  char* errmsg;
 } uv_lib_t;
 
 RB_HEAD(uv_timer_tree_s, uv_timer_s);

@@ -50,10 +50,9 @@
 # include "uv-sunos.h"
 #elif defined(__APPLE__)
 # include "uv-darwin.h"
-#elif defined(__DragonFly__)       || \
-      defined(__FreeBSD__)         || \
-      defined(__FreeBSD_kernel__)  || \
-      defined(__OpenBSD__)         || \
+#elif defined(__DragonFly__)  || \
+      defined(__FreeBSD__)    || \
+      defined(__OpenBSD__)    || \
       defined(__NetBSD__)
 # include "uv-bsd.h"
 #endif
@@ -84,13 +83,13 @@ typedef void (*uv__io_cb)(struct uv_loop_s* loop,
 typedef struct uv__io_s uv__io_t;
 
 struct uv__io_s {
-    uv__io_cb cb;
-    void* pending_queue[2];
-    void* watcher_queue[2];
-    unsigned int pevents; /* Pending event mask i.e. mask at next tick. */
-    unsigned int events;  /* Current event mask. */
-    int fd;
-    UV_IO_PRIVATE_PLATFORM_FIELDS
+  uv__io_cb cb;
+  void* pending_queue[2];
+  void* watcher_queue[2];
+  unsigned int pevents; /* Pending event mask i.e. mask at next tick. */
+  unsigned int events;  /* Current event mask. */
+  int fd;
+  UV_IO_PRIVATE_PLATFORM_FIELDS
 };
 
 typedef void (*uv__async_cb)(struct uv_loop_s* loop,
@@ -98,9 +97,9 @@ typedef void (*uv__async_cb)(struct uv_loop_s* loop,
                              unsigned int nevents);
 
 struct uv__async {
-    uv__async_cb cb;
-    uv__io_t io_watcher;
-    int wfd;
+  uv__async_cb cb;
+  uv__io_t io_watcher;
+  int wfd;
 };
 
 #ifndef UV_PLATFORM_SEM_T
@@ -121,8 +120,8 @@ struct uv__async {
 
 /* Note: May be cast to struct iovec. See writev(2). */
 typedef struct uv_buf_t {
-    char* base;
-    size_t len;
+  char* base;
+  size_t len;
 } uv_buf_t;
 
 typedef int uv_file;
@@ -190,8 +189,8 @@ typedef struct dirent uv__dirent_t;
 #define UV_DYNAMIC /* empty */
 
 typedef struct {
-    void* handle;
-    char* errmsg;
+  void* handle;
+  char* errmsg;
 } uv_lib_t;
 
 #define UV_LOOP_PRIVATE_FIELDS                                                \
