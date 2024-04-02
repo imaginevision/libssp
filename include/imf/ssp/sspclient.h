@@ -21,6 +21,9 @@
 #define ERROR_SSP_CONNECTION_FAILED                 (-1002)
 #define ERROR_SSP_CONNECTION_EXIST                  (-1003)
 
+
+#define SSP_CAPABILITY_IGNORE_HEARTBEAT_DISABLE_ENC (1 << 0)
+
 namespace imf
 {
 
@@ -106,7 +109,8 @@ public:
 	void setOnDisconnectedCallback(const OnDisconnectedCallback & cb);
 	void setOnConnectionConnectedCallback(const OnConnectionConnectedCallback & cb);
 	void setOnExceptionCallback(const OnExceptionCallback & cb);
-
+	int  setCapability(uint32_t capability);
+	void setIsHlg(bool isHlg);
 private:
 	SspClientImp *imp_;
 };
